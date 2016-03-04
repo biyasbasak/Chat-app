@@ -9,6 +9,11 @@ app.use(express.static(__dirname + '/public'));
 // socket refers to an individual connection
 io.on('connection', function (socket){
 	console.log('User connected via socket.io');
+	
+	socket.on('message', function(message){
+		console.log('Message recieved: ' + message.text);
+		socket.broadcast.emit('message', message);
+	});
 	//custom event message which the front end listens to and acts accordingly
 	socket.emit('message',{
 		text: 'Welcome to the chat application!'
