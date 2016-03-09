@@ -27,14 +27,16 @@ socket.on('message', function(message){
 // Handles submitting of new message
 var $form = $('#message-form');
 
+//listens for submit event 
 $form.on('submit', function(event){
 	event.preventDefault();  //prevent the page from refreshing
 	
 	var $message = $form.find('input[name=message]');
+	
 	//creating a custom event message for the server to listen to
 	socket.emit('message',{
-		name: name,
-		text: $message.val()
+		name: name, // name of the user
+		text: $message.val() // text typed
 	});
-	$message.val('');
+	$message.val(''); // reset the form to blank
 });
